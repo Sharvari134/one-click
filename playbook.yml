@@ -1,0 +1,41 @@
+---
+- name: Install Java and Cassandra on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update apt package list
+      apt:
+        update_cache: yes
+
+    - name: Install OpenJDK 8
+      apt:
+        name: openjdk-8-jdk
+        state: present
+
+    - name: Add Cassandra repository
+      shell: echo "deb https://debian.cassandra.apache.org 41x main" | tee -a /etc/apt/sources.list.d/cassandra.sources.list
+
+    - name: Import Cassandra repository signing key
+      shell: curl https://downloads.apache.org/cassandra/KEYS | apt-key add -
+
+    - name: Update apt package list again after adding repo
+      apt:
+        update_cache: yes
+
+    - name: Install Cassandra
+      apt:
+        name: cassandra
+        state: present
+
+    - name: Start Cassandra service
+      systemd:
+        name: cassandra
+        state: started
+        enabled: yes
+
+    - name: Check status of Cassandra service
+      systemd:
+        name: cassandra
+        state: started
+
+                                
