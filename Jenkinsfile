@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Sharvari134/morya.git'
+                git branch: 'main', url: 'https://github.com/Sharvari134/one-click.git'
             }
         }
         stage('Terraform init') {
