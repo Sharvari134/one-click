@@ -133,7 +133,7 @@ resource "aws_security_group" "bastion_sg" {
 
 # Bastion Host
 resource "aws_instance" "bastion" {
-  ami           = "ami-0b40dea19b4538863"
+  ami           = "ami-028890b2d1b5a2632"
   instance_type = "t3.medium"
   subnet_id     = aws_subnet.public_subnets[0].id
   vpc_security_group_ids = [aws_security_group.bastion_sg.id]
@@ -183,7 +183,7 @@ resource "aws_security_group" "cassandra_sg" {
 
 # Cassandra Application Server
 resource "aws_instance" "cassandra_server" {
-  ami           = "ami-0b40dea19b4538863"
+  ami           = "ami-028890b2d1b5a2632"
   instance_type = "t3.large"
   subnet_id     = aws_subnet.private_subnets[0].id
   vpc_security_group_ids = [aws_security_group.cassandra_sg.id]
@@ -235,7 +235,7 @@ resource "aws_lb_listener" "http" {
 # Launch Template
 resource "aws_launch_template" "app_lt" {
   name          = "app-launch-template"
-  image_id      = "ami-0b40dea19b4538863"
+  image_id      = "ami-028890b2d1b5a2632"
   instance_type = "t3.medium"
   key_name      = "osaka1"
 
@@ -299,5 +299,5 @@ resource "aws_route" "default_to_custom" {
 
 output "vpc_peering_connection_id" {
   value = aws_vpc_peering_connection.vpc_peering.id
-}
+  }
 
